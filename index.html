@@ -635,5 +635,65 @@
         });
     })();
     </script>
+
+<script>
+// 腾讯云函数联系表单提交
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('guestbookForm');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var submitBtn = form.querySelector('.btn-submit');
+        var originalText = submitBtn.textContent;
+        
+        // 显示加载状态
+        submitBtn.textContent = '提交中...';
+        submitBtn.disabled = true;
+        
+        // 收集表单数据
+        var formData = {
+            name: document.getElementById('gbName').value,
+            phone: document.getElementById('gbPhone').value,
+            email: document.getElementById('gbEmail').value,
+            message: document.getElementById('gbMessage').value,
+            timestamp: new Date().toLocaleString('zh-CN')
+        };
+        
+        // 腾讯云函数地址（部署后替换成你的实际地址）
+        var apiUrl = 'https://你的云函数地址';
+        
+        // 发送请求
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success) {
+                alert('留言提交成功！我们会尽快与您联系。');
+                form.reset();
+            } else {
+                alert('提交失败：' + (data.message || '未知错误'));
+            }
+        })
+        .catch(function(error) {
+            console.error('提交错误:', error);
+            alert('提交失败，请稍后重试或直接拨打电话联系。');
+        })
+        .finally(function() {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
+    });
+});
+</script>
+
 </body>
 </html>
