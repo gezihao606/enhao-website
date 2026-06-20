@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error>
+  <Code>InvalidObjectState</Code>
+  <Message>The operation is not valid for the object's state</Message>
+  <RequestId>6A3610B51AA5CE3739DD3050</RequestId>
+  <HostId>aimg8.oss-cn-shanghai.aliyuncs.com</HostId>
+  <ObjectName>u/2020530/product/238/474507_1588054977.jpg</ObjectName>
+</Error>
